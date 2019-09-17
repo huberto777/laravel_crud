@@ -1,0 +1,30 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+.navbar-laravel {
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+.warning {
+    background-color: orange;
+}
+
+.positive-rating {
+    color: yellow;
+}
+
+a:hover {
+    color: orange;
+}
+
+.table-hover tbody tr:hover {
+    color: orange;
+    background-color: darkslategrey;
+}
