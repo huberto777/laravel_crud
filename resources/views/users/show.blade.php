@@ -6,7 +6,7 @@
         <hr class="border-warning">
         <div class="card bg-dark">
         	<div class="row">
-	        	<div class="col-md-6"><img src="{{ $user->path == null ? $placeholder : asset("storage/{$user->path}")  }}" width="400" height="300" alt="" class="mr-4">
+	        	<div class="col-md-6"><img src="{{ $user->path == null ? $placeholder : asset("storage/{$user->path}")  }}" width="400" height="300" alt="" class="mr-4 img-fluid" className="fluid">
 	        	</div>
 	        	<div class="col-md-6">
 		        	<h5>

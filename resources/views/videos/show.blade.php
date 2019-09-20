@@ -47,53 +47,23 @@
                 @endforeach
         </div>
     </div>
-
-    @include('session')
-    @include('error')
-    @auth
-        @if($video->isCommented())
-            <div class="col-md-12 text text-danger">dodałeś komentarz do tego video</div>
-        @else
-            <div class="col-md-12">
-                <div class="jumbotron bg-dark text-white"><h2>Dodaj komentarz</h2>
-                    <hr class="bg-warning">
-                    <form action="{{ route('addComment',[$video->id,'Video']) }}" method="post">
-                        {{ csrf_field() }}
-                        <div class="form-group row">
-                            <label for="content" class="col-md-2 text-md-right col-form-label">treść:</label>
-                            <div class="col-md-10">
-                                <textarea class="form-control" name="content" id="content" cols="30" rows="10"></textarea>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-md-10 offset-2">
-                                <button type="submit" class="btn btn-block btn-warning">dodaj komentarz</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        @endif
-    @else
-        <div class="col-md-12"><a href="{{ route('login') }}">zaloguj się aby dodać komentarz</a></div>
-    @endauth
     <div class="col-md-12">
-        <div class="jumbotron bg-dark text-white">
-            <h2>komentarze <div class="badge badge-pill badge-warning">{{ $video->comments->count() ?? false }}</div></h2>
-            <hr class="bg-warning">
-            @foreach($video->comments as $comment)
-                <img src="{{ $comment->user->path == null ? $placeholder : asset("storage/{$comment->user->path}") }}" alt="" height="30" width="25" align="left" />
-                <h4>autor: {{ $comment->user->name }}</h5>
-                <h5>{{ $comment->content }}</h4>
-                <hr class="bg-warning">
-                @if(Auth::user() && Auth::user()->hasRole(['admin']))
-                    <a href="{{ route('editComment',$comment->id) }}" class="btn btn-sm btn-outline-primary"><i class="far fa-edit"></i></a>
-                    <a href="{{ route('deleteComment',$comment->id) }}" class="btn btn-sm btn-outline-danger"><i class="far fa-trash-alt"></i></a>
-                    <hr class="bg-warning">
-                @endif
-            @endforeach
-        </div>
+        @include('session')
+        @include('error')
     </div>
+
+    <div id="addComment"
+        auth="{{Auth::user() ?? false }}"
+        isCommented="{{$video->isCommented()}}"
+        name="Video"
+        model="{{$video}}"
+        count="{{$video->comments->count() ?? false }}"
+        comments="{{$video->comments}}"
+        placeholder="{{$placeholder}}"
+    >
+        @include('comments._form')
+    </div>
+{{-- SELECT auto_increment FROM information_schema.tables WHERE table_schema = DATABASE() AND table_name = 'NazwaTabeli'; --}}
 @endsection
 
 @section('scripts')
@@ -143,9 +113,10 @@
             }
         }
         let auth = document.getElementById('like').getAttribute('auth');
+        let admin = document.getElementById('like').getAttribute('admin');
         let video = document.getElementById('like').getAttribute('video');
         let count = document.getElementById('like').getAttribute('count');
         let isLiked = document.getElementById('like').getAttribute('isLiked');
-        ReactDOM.render(<Like auth={auth} video={video} count={count} isLiked={isLiked} />, document.getElementById('like'))
+        ReactDOM.render(<Like auth={auth} admin={admin} video={video} count={count} isLiked={isLiked} />, document.getElementById('like'))
     </script>
 @endsection

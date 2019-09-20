@@ -26,10 +26,10 @@ Route::get('archiveArticles/{year}', 'ArchivesController@archiveArticles')->name
 Route::get('articles/{article}/tags/{tag}', 'TagsController@articleTag')->name('articleTags');
 
 // ***COMMENTS***
-Route::post('/addComment/{commentable_id}/{commentable_type}', 'CommentsController@store')->name('addComment');
-Route::get('/editComment/{comment}', 'CommentsController@edit')->name('editComment');
+Route::post('/addComment/{commentable_id}/{commentable_type}', 'CommentsController@store');
+Route::get('/editComment/{comment}', 'CommentsController@edit');
 Route::put('/editComment/{comment}', 'CommentsController@update')->name('updateComment');
-Route::get('deleteComment/{comment}', 'CommentsController@destroy')->name('deleteComment');
+Route::get('/deleteComment/{comment}', 'CommentsController@destroy');
 
 // ***CONTACT***
 Route::get('/contact', 'ContactsController@formContact')->name('contact');

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Album extends Model
 {
     use Presenters\AlbumPresenter;
+    
     protected $fillable = ['name', 'user_id'];
     protected $with = ['user', 'photos'];
     protected $appends = ['storage_path'];

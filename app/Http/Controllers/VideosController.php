@@ -17,7 +17,7 @@ class VideosController extends Controller
     public function index()
     {
         $videos = Video::orderBy('id', 'desc')->get();
-        return view('videos.index', compact('videos'));
+        return view('videos.index', ['videos' => $videos]);
     }
 
     public function show(Video $video)

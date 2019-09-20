@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('title')
 	@if($year ?? false)
-		archiwum {{ $month.'-'.$year }}
+		{{ $month.'-'.$year }}
 	@else
 		lista video
 	@endif
@@ -12,8 +12,8 @@
         auth="{{Auth::user() && Auth::user()->hasRole(['admin'])}}"
         videos="{{$videos}}"
         count="{{$videos->count()}}"
-        month="{{$month ?? null}}"
-        year="{{$year ?? null}}"
+        month="{{$month ?? false}}"
+        year="{{$year ?? false}}"
     >
     </div>
 @endsection
@@ -28,7 +28,7 @@
                     <div className="col-md-3">
                         <div className="card text-white bg-dark mb-2 px-2">
                             <div className="card-text">
-                                    <h5><a href={`/videos/${id}`} className="ml-2 text-white text-decoration-none">{title}</a></h5>
+                                    <h5><a href={`/videos/${id}`} className="ml-2 text-white text-decoration-none">{title.substr(0,10) + "..."}</a></h5>
 					        </div>
 					        <div className="embed-responsive embed-responsive-16by9 mb-2">
 						        <iframe className="embed-responsive-item" src={url} frameBorder="0" allowFullScreen></iframe>
@@ -57,16 +57,20 @@
             }
             deleteVideo = id => {
                 // console.log(id);
-                let videos = [...this.state.videos];
-                let index = videos.findIndex(video => video.id === id);
-                videos.splice(index,1);
-                this.setState({
-                    videos,
-                    count: this.state.count - 1
-                })
-                axios.delete(`videos/${id}`)
-                    .then(response => response.data)
-                    .catch(error => console.log(error));
+                if(this.props.auth) {
+                    let videos = [...this.state.videos];
+                    let index = videos.findIndex(video => video.id === id);
+                    videos.splice(index,1);
+                    this.setState({
+                        videos,
+                        count: this.state.count - 1
+                    })
+                    axios.delete(`videos/${id}`)
+                        .then(response => response.data)
+                        .catch(error => console.log(error));
+                } else {
+                    alert('zaloguj się');
+                }
             }
             handleSearch = e => {
                 this.setState({
@@ -97,7 +101,7 @@
                             </div>
                         </div>
 
-                        <a href="{{ route('videos.create') }}" className="btn btn-block btn-success mb-2">dodaj video</a>
+                        {auth ? <a href="{{ route('videos.create') }}" className="btn btn-block btn-success mb-2">dodaj video</a> : '' }
 
                         <div className="row">
                             {videos.map(video => (

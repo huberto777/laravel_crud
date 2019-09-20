@@ -2,10 +2,17 @@
 
 namespace App\Presenters;
 
-trait AlbumPresenter
+trait UserPresenter
 {
     public function getStoragePathAttribute($value)
     {
         return asset("storage/{$value}");
     }
+
+    public function getRoleAttribute()
+    {
+        return $this->roles()->get();
+    }
 }
+
+

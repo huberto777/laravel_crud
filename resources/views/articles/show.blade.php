@@ -35,7 +35,7 @@
                         count="{{$article->users->count()}}"
                         article="{{$article}}"
                         isLiked="{{$article->isLiked()}}"
-                        auth="{{Auth::user() ?? null}}">
+                        auth="{{Auth::user() ?? false}}">
                     </div>
                 </div>
             </div>
@@ -51,27 +51,17 @@
 
     @include('session')
     @include('error')
-    @include('comments._form',[
-        'article' => $article
-    ])
 
-    <div class="col-md-12">
-        <div class="jumbotron bg-dark text-white">
-            <h2>Komentarze <div class="badge badge-pill badge-warning">{{ $article->comments->count() ?? false }}</div></h2>
-            <hr class="bg-warning">
-            @foreach($article->comments as $comment)
-                <img src="{{ $comment->user->path == null ? $placeholder : asset("storage/{$comment->user->path}") }}" alt="" height="30" width="25" align="left">
-                <h4>autor: {{ $comment->user->name }}</h4>
-                <hr>
-                <h5>{{ $comment->content }}</h5>
-                <h5>{!! $comment->rating !!}</h5>
-                @if(Auth::user() && Auth::user()->hasRole(['admin']))
-                    <a href="{{ route('editComment',$comment->id) }}" class="btn btn-outline-primary"><i class="far fa-edit"></i></a>
-                    <a href="{{ route('deleteComment',$comment->id) }}" class="btn btn-outline-danger"><i class="far fa-trash-alt"></i></a>
-                @endif
-                <hr class="bg-warning">
-            @endforeach
-        </div>
+    <div id="addComment"
+        auth="{{Auth::user() ?? false}}"
+        isCommented="{{$article->isCommented()}}"
+        name="Article"
+        model="{{$article}}"
+        count="{{$article->comments->count() ?? false }}"
+        comments="{{$article->comments}}"
+        placeholder="{{$placeholder}}"
+    >
+        @include('comments._form')
     </div>
 @endsection
 
@@ -86,7 +76,6 @@
                 article: JSON.parse(props.article),
                 count: JSON.parse(props.count),
             }
-            // console.log(props);
         }
         handleLike = e => {
             e.preventDefault();
@@ -116,8 +105,8 @@
                     <h4>
                         <i className="fas fa-thumbs-up fa-lg"></i> <div className="badge badge-pill badge-danger">{count}</div>
                     </h4>
-                    {auth ? isLiked ? <a onClick={this.handleLike}>polub</a> :
-                    <a onClick={this.handleUnlike}>odlub</a> : <a href="{{ route('login') }}">zaloguj się aby ocenić artykuł</a>}
+                    {auth ? isLiked ? <a onClick={this.handleUnlike}>odlub</a> : <a onClick={this.handleLike}>polub</a>
+                     : <a href="{{ route('login') }}">zaloguj się aby ocenić artykuł</a>}
                 </>
             )
         }

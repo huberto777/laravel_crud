@@ -20,7 +20,7 @@
 			@foreach($users as $key=>$user)
 				<tr>
 					<td>{{ $key + 1 }}</td>
-					<td><a href="{{ route('users.show',$user->id) }}"><img src="{{ $user->path != null ? asset("storage/{$user->path}") : $placeholder }}" width="25" height="30" title="{{ $user->name }}" alt=""></a> {{ $user->name }}</td>
+					<td><a href="{{ route('users.show',$user->id) }}"><img src="{{ $user->path != null ? asset("storage/{$user->path}") : $placeholder }}" width="25" height="30" title="{{ $user->name }}" alt="" align="left" class="mr-2 img-fluid"></a> {{ $user->name }}</td>
 					<td><a href="{{ route('users.show',$user->id) }}" class="btn btn-sm btn-success"><i class="fas fa-info"></i></a></td>
 					<td><a href="{{ route('users.edit',$user->id) }}" class="btn btn-sm btn-primary"><i class="far fa-edit"></i></a></td>
 					<td>

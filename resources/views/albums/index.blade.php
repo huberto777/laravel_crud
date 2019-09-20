@@ -9,26 +9,21 @@
         count="{{$albums->count()}}"
     >
     </div>
-
-
-        {{-- @foreach($albums->chunk(4) as $chunked_album)
-        <div class="row"> --}}
-
 @endsection
 
 @section('scripts')
     <script type="text/babel">
         const AlbumItem = props => {
             const { id, name, photos, storage_path } = props.album;
-            // console.log(props.album);
-            console.log(photos);
-            // console.log(`${storage_path}/${photos[0][0].path}`);
+            // console.log(props.album.id);
+            // console.log(photos[0].path);
+            // console.log(`${storage_path}/${photos[0].path}`);
             return (
                 <>
                     <div className="col-md-3 mb-2">
                         <a href={`albums/${id}`} className="photo text-decoration-none">
-                            <div className="card-img  pb-2 bg-dark"><img src={`${photos.length}` !== null ? `${storage_path}/${photos}` : props.placeholder} title={`${name}`} className="img-thumbnail bg-dark" />
-                                <span className="text-white ml-2">{name}</span>
+                            <div className="card-img  pb-2 bg-dark"><img src={ photos.length !== 0 ? `${storage_path}/${photos[0].path}` : props.placeholder} title={`${name}`} className="img-thumbnail bg-dark" />
+                                <span className="text-white ml-2">{name.substr(0,20) + "..."}</span>
                             </div>
                         </a>
                         {props.auth ?

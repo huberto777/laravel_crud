@@ -39,7 +39,9 @@ class UserUpdateRequest extends FormRequest
         if ($this->hasFile('path'))
             Storage::disk('public')->delete($user->path);
 
-        $user->update($this->all() + [
+        $user->update([
+            'name' => $this->input('name'),
+            'email' => $this->input('email'),
             'path' => $this->hasFile('path') ? Storage::disk('public')->put('users_' . $dir, $this->file('path')) : $user->path
         ]);
         $user->roles()->sync($this->input('roles'));

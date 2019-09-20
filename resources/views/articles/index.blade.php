@@ -27,7 +27,7 @@ const ArticleItem = props => {
     // console.log(props.article);
     return (
         <tr>
-            <td><a href={`/articles/${slug}`}><img width="35" height="25" src={ `${path}` === null ? `${props.placeholder}` : `${storage_path}/${path}` } alt="" title={ `${title}` } /></a></td>
+            <td><a href={`/articles/${slug}`}><img width="35" height="25" src={ `${path}` === "null" ? `${props.placeholder}` : `${storage_path}/${path}` } alt="" title={ `${title}` } name="img-fluid" /></a></td>
             <td>{title}</td>
             <td><a href={`/articles/${slug}`}>czytaj...</a></td>
             {props.auth ?
@@ -50,7 +50,7 @@ class ArticleList extends React.Component {
             search: ''
         }
         // console.log(props.auth);
-        console.log(JSON.parse(props.articles));
+        // console.log(JSON.parse(props.articles));
         // console.log(props.placeholder);
     }
     deleteArticle = slug => {

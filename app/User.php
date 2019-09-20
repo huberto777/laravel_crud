@@ -9,6 +9,9 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
     use Notifiable;
+    use Presenters\UserPresenter;
+    protected $appends = ['storage_path', 'role'];
+
     public static $roles = [];
     /**
      * The attributes that are mass assignable.
@@ -88,4 +91,5 @@ class User extends Authenticatable
         }
         return false;
     }
+
 }

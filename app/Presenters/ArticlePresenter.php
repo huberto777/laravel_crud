@@ -1,8 +1,7 @@
 <?php
 
 namespace App\Presenters;
-
-use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 trait ArticlePresenter
 {
@@ -11,6 +10,7 @@ trait ArticlePresenter
     {
     	return asset("storage/{$value}");
     }
+
  /*
     // ścieżka względna
     public function getPathAttribute()

@@ -7,7 +7,7 @@
 	@include('error')
 	@include('session')
 	<div class="jumbotron text-white bg-dark">
-        <form {{ $novalidate }} action="{{ route('editComment',$comment->id) }}" method="post">
+        <form {{ $novalidate }} action="{{ route('updateComment',$comment->id) }}" method="post">
             {{ method_field('put') }}
 			<div class="form-group row">
 				<label for="content" class="col-md-2 col-form-label text-md-right">treść:</label>
@@ -32,7 +32,7 @@
             @endif
 			<div class="form-group row">
 				<div class="col-md-10 offset-md-2">
-					<button type="submit" class="btn btn-block btn-danger">edytuj</button>
+					<button type="submit" class="btn btn-block btn-outline-danger">edytuj</button>
 					@if($comment->commentable_type == 'App\Article')
 						<a href="{{ route('articles.show',$comment->commentable->slug) }}" class="btn btn-outline-warning btn-block">powrót</a>
 					@else

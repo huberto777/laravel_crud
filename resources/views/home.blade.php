@@ -23,7 +23,7 @@
             <div class="col-md-4" style="display: flex;">
                 <div class="jumbotron text-white bg-dark">
                     <h4>{{ $article->title }}</h4>
-                    <div class="card-img mb-2 pb-2 bg-dark"><img src="{{ $article->path != null ? asset("storage/{$article->path}") : $placeholder }}" title="{{ $article->title }}" class="img-thumbnail bg-dark">
+                    <div class="card-img mb-2 pb-2 bg-dark"><img src="{{ $article->path != null ? asset("storage/{$article->path}") : $placeholder }}" title="{{ $article->title }}" class="img-fluid img-thumbnail bg-dark">
                     <span class="text-white ml-2">{{ Str::limit($article->description,450) }}</span></div>
                     <hr class="border-warning">
                     <a href="{{ route('articles.show',['id'=>$article->id]) }}">cały artykuł...</a>

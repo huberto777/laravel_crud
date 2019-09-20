@@ -19,7 +19,8 @@ class UsersTableSeeder extends Seeder
                 'name' => $faker->name,
                 'email' => $faker->unique()->email,
                 'password' => bcrypt('qwerty'),
-                'path' => $faker->imageUrl(250, 175),
+                // 'path' => $faker->imageUrl(250, 175),
+                'path' => null,
                 'remember_token' => Str::random(32)
             ]);
         }
